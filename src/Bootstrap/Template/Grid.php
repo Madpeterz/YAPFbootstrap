@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bootstrap\Template;
+namespace YAPF\Bootstrap\Template;
 
 class Grid
 {
