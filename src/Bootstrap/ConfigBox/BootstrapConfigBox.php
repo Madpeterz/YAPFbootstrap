@@ -76,6 +76,12 @@ class BootstrapConfigBox extends SimpleConfig
         return $this->deepFolder;
     }
 
+    public function setFolders(string $rootFolder, string $deepFolder): void
+    {
+        $this->rootfolder = $rootFolder;
+        $this->deepFolder = $deepFolder;
+    }
+
     /*
         Flag control
     */
