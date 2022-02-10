@@ -143,7 +143,7 @@ class BootstrapConfigBox extends SimpleConfig
 
         if ($process == null) {
             if (array_key_exists("REQUEST_URI", $_SERVER) == true) {
-                $process = $_SERVER['REQUEST_URI']);
+                $process = $_SERVER['REQUEST_URI'];
             }
         }
         if ($process == null) {
