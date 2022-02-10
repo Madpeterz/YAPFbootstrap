@@ -2,6 +2,8 @@
 
 namespace YAPF\Bootstrap\Template;
 
+use YAPF\Helpers\FunctionHelper;
+
 class Form
 {
     protected string $targeturl = "";
@@ -55,7 +57,8 @@ class Form
     ): string {
         $this->enableGridRender();
         if ($this->formid == "") {
-            $this->formid = "form" . substr(sha256($this->mygrid->getOutput() . time() . rand(500, 1000)), 0, 12) . "a";
+            $this->formid = "form"
+            . substr(FunctionHelper::sha256($this->mygrid->getOutput() . time() . rand(500, 1000)), 0, 12) . "a";
         }
         $this->mygrid->closeRow();
         $ajax_mode = "ajax";
