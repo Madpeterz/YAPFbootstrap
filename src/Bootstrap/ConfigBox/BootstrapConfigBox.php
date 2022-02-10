@@ -14,7 +14,7 @@ class BootstrapConfigBox extends SimpleConfig
 
     // site flags
     protected string $html_title_after = "";
-    protected string $url_base = "";
+    protected string $SITE_URL = "";
     protected string $html_title = "";
 
     // Folders
@@ -29,9 +29,18 @@ class BootstrapConfigBox extends SimpleConfig
         parent::__construct();
         $this->setFlag("SITE_NAME", "bootstrap enabled");
         $this->setFlag("SITE_URL", "http://localhost/");
-        $this->setFlag("url_base", $this->getFlag("SITE_URL"));
         $this->loadURL();
         $this->loadFromDocker();
+    }
+
+    public function getSiteName(): string
+    {
+        return $this->getFlag("SITE_NAME");
+    }
+
+    public function getSiteURL(): string
+    {
+        return $this->getFlag("SITE_URL");
     }
 
     protected function loadFromDocker(): void

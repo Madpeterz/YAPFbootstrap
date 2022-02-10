@@ -15,12 +15,12 @@ abstract class BasicView extends ErrorLogging
     protected BootstrapConfigBox $config;
 
     public function __construct(
-        &BootstrapConfigBox $config,
         bool $AutoLoadTemplate = true
     ) {
-        $this->config = $config;
+        global $system;
+        $this->config = $system;
 
-        $this->output = new Template(&$this->config, $AutoLoadTemplate);
+        $this->output = new Template($AutoLoadTemplate);
         if ($AutoLoadTemplate == true) {
             $this->output->tempateSidemenu();
         }

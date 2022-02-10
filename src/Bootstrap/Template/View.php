@@ -19,6 +19,6 @@ class View extends TableView
         $updateId = substr(sha1(implode("#", $bits)), $rand, 12);
         $updateId = "aj" . $updateId . "rp";
         return '<div id="' . $updateId . '" class="autoload" data-update="' . $updateId . '" 
-        data-target="[[url_base]]' . $target . '">' . $waitingText . '</div>';
+        data-target="[[SITE_URL]]' . $target . '">' . $waitingText . '</div>';
     }
 }

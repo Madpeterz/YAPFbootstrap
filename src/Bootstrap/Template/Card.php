@@ -67,7 +67,7 @@ class Card
         if ($this->hasLink == true) {
             $offsite = true;
             if (str_contains($this->linkAdd, "http") == false) {
-                $link_url = "[[url_base]]" . $link_url;
+                $link_url = "[[SITE_URL]]" . $link_url;
                 $offsite = false;
             }
             $link_start = '<a target="_BLANK" rel="noreferrer" href="' . $link_url . '">';
@@ -81,13 +81,13 @@ class Card
             $imageUrl = $this->imagePath;
             $styleAddon = "";
             if (str_contains($imageUrl, "http") == false) {
-                $imageUrl = "[[url_base]]" . $imageUrl;
+                $imageUrl = "[[SITE_URL]]" . $imageUrl;
             }
             if ($this->limitImageHeight == true) {
                 $styleAddon = ' style="max-height: ' . $this->maxImageHeight . 'px" ';
             }
             $output .= $link_start;
-            $output .= '<img onerror="this.src=\'[[url_base]]images/nopreview.png\'" src="';
+            $output .= '<img onerror="this.src=\'[[SITE_URL]]images/nopreview.png\'" src="';
             $output .= $imageUrl . '" class="card-img-top ';
             $output .= $this->imageClassText . '"';
             $output .= ' alt="Title image" ' . $styleAddon . '>';

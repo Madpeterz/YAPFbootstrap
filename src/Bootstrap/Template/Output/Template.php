@@ -30,7 +30,6 @@ class Template extends SwapTags
 
     protected function defaults(): void
     {
-        global $template_parts;
         $this->tempalte_parts["topper"] = '<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
         <html>';
@@ -42,28 +41,19 @@ class Template extends SwapTags
         $this->tempalte_parts["body_end"] = "</body>";
         $this->tempalte_parts["footer"] = "</html>";
 
+        $this->setSwapTag("SITE_NAME", $this->config->getSiteName());
+        $this->setSwapTag("html_title_after", $this->config->getSiteName());
         $this->setSwapTag("html_title", "Page");
         $this->setSwapTag("html_cs_top", "");
         $this->setSwapTag("html_js_onready", "");
         $this->setSwapTag("html_js_bottom", "");
-        $this->setSwapTag("html_title_after", "Lilium");
         $this->setSwapTag("cache_status", "Not used");
-        $this->siteName("Lilium");
-
-        if (is_array($template_parts) == false) {
-            $this->setSwapTag("html_title_after", "Lilium");
-            $this->siteName("Lilium");
-            return;
-        }
-        if (array_key_exists("html_title_after", $template_parts) == true) {
-            $this->setSwapTag("html_title_after", $template_parts["html_title_after"]);
-            $this->siteName($template_parts["html_title_after"]);
-        }
     }
 
-    public function __construct(&BootstrapConfigBox $config, bool $with_defaults = true)
+    public function __construct(bool $with_defaults = true)
     {
-        $this->config = $config;
+        global $system;
+        $this->config = $system;
         parent::__construct($with_defaults);
         if ($with_defaults == true) {
             $this->defaults();
@@ -142,7 +132,7 @@ class Template extends SwapTags
                 if (!headers_sent()) {
                     header("Location: " . $this->redirect_to);
                 } else {
-                    print " < meta http - equiv = \"refresh\" content=\"0; url=";
+                    print " <meta http-equiv=\"refresh\" content=\"0; url=";
                     print $this->redirect_to . "\">";
                 }
             }

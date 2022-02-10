@@ -68,10 +68,10 @@ class Form
             $ajax_mode = "";
         }
         if ($this->mode == "post") {
-            $this->mygrid->addBefore('<form id="' . $this->formid . '" action="[[url_base]]' .
+            $this->mygrid->addBefore('<form id="' . $this->formid . '" action="[[SITE_URL]]' .
             $this->targeturl . '" method="POST" class="form ' . $ajax_mode . '">');
         } else {
-            $this->mygrid->addBefore('<form id="' . $this->formid . '" action="[[url_base]]' .
+            $this->mygrid->addBefore('<form id="' . $this->formid . '" action="[[SITE_URL]]' .
             $this->targeturl . '" method="GET" class="form">');
         }
         $mgtop = "mt-4";

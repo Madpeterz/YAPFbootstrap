@@ -2,28 +2,27 @@
 
 namespace YAPF\Bootstrap\Template\Output;
 
+use YAPF\Bootstrap\ConfigBox\BootstrapConfigBox;
+
 abstract class SwapTags
 {
+    protected BootstrapConfigBox $config;
     protected $swaptags = [];
     public function __construct(bool $with_defaults = false)
     {
-        global $template_parts;
+        global $system;
+        $this->config = $system;
         if ($with_defaults == true) {
             $this->swaptags = [
             "@NL@" => "\r\n",
             "PAGE_TITLE" => "",
             "SITE_NAME" => "",
-            "url_base" => null,
+            "SITE_URL" => null,
             "META_TAGS" => "",
             "unixtimeNow" => time(),
             ];
         }
-        if (is_array($template_parts) == true) {
-            if (array_key_exists("url_base", $template_parts) == true) {
-                $this->setSwapTag("url_base", $template_parts["url_base"]);
-                $this->urlBase($template_parts["url_base"]);
-            }
-        }
+        $this->setSwapTag("SITE_URL", $this->config->getSiteURL());
     }
     /**
      * getAllTags
@@ -92,26 +91,12 @@ abstract class SwapTags
         $this->swaptags[$tagname] = $newvalue;
         return $this->swaptags[$tagname];
     }
-    public function urlBase(string $newvalue = null): string
-    {
-        if ($newvalue != null) {
-            $this->setSwapTag("url_base", $newvalue);
-        }
-        return $this->getSwapTagString("url_base");
-    }
     public function pageTitle(string $newvalue = null): string
     {
         if ($newvalue != null) {
             $this->setSwapTag("PAGE_TITLE", $newvalue);
         }
         return $this->getSwapTagString("PAGE_TITLE");
-    }
-    public function siteName(string $newvalue = null): string
-    {
-        if ($newvalue != null) {
-            $this->setSwapTag("SITE_NAME", $newvalue);
-        }
-        return $this->getSwapTagString("SITE_NAME");
     }
     /**
      * metaTags
