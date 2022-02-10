@@ -111,7 +111,7 @@ abstract class Switchboard extends ErrorLogging
         }
     }
 
-    protected function fininalize($obj): void
+    protected function fininalize(): void
     {
         $this->loadedObject->getOutputObject()->setSwapTag("module", $this->loadingModule);
         $this->loadedObject->getOutputObject()->setSwapTag("area", $this->loadingArea);
