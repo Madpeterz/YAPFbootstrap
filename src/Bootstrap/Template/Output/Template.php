@@ -70,7 +70,7 @@ class Template extends SwapTags
         $this->redirect_offsite = $offsite;
         $this->redirect_to = $to;
         if ($offsite == false) {
-            $this->redirect_to = $this->urlBase() . $to;
+            $this->redirect_to = $this->config->getSiteURL() . $to;
         }
     }
     public function loadTemplate(string $layout, array $layout_entrys): void
