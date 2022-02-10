@@ -99,7 +99,7 @@ abstract class Switchboard extends ErrorLogging
             return;
         }
 
-        $this->loadedObject = new $use_class($this->config);
+        $this->loadedObject = new $use_class();
         if ($this->loadedObject->getLoadOk() == true) {
             $this->fininalize();
         }
