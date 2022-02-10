@@ -8,10 +8,6 @@
             "YAPF\\Bootstrap\\": "src/bootstrap"
         }
     },
-    "support": {
-        "source": "https://github.com/Madpeterz/YAPFInputFilter",
-        "issues": "https://github.com/Madpeterz/YAPFInputFilter/issues"
-    },
     "config": {
         "platform": {
             "php": "7.4"
@@ -19,7 +15,7 @@
     },
     "require": {
         "php": ">=7.4",
-        "madpeterz/yetonemorephpframework": "^4.0",
+        "madpeterz/yetonemorephpframework": "^5.0",
         "madpeterz/yapfinputfilter": "^2.0"
     },
     "require-dev": {
@@ -34,9 +30,6 @@
         }
     ],
     "scripts": {
-        "dev-test": [
-            "phpunit --colors=always --configuration phpunit.xml --testdox --testsuite All "
-        ],
         "phpcs": "phpcs",
         "phpcbf": "phpcbf",
         "phpunit": "phpunit"
