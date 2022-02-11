@@ -47,6 +47,7 @@ abstract class Switchboard extends ErrorLogging
         if ($step == 4) {
             $bits = ["App","Endpoint",$this->targetEndpoint,$this->loadingModule,"DefaultView"];
             $use_class = "\\" . implode("\\", $bits);
+            error_log("trying class:" . $use_class);
             if (class_exists($use_class) == false) {
                 return null;
             }
@@ -60,6 +61,7 @@ abstract class Switchboard extends ErrorLogging
             $loop++;
         }
         $use_class = "\\" . implode("\\", $bits);
+        error_log("trying class:" . $use_class);
         if (class_exists($use_class) == false) {
             return $this->findMasterClass($step + 1);
         }
@@ -88,6 +90,7 @@ abstract class Switchboard extends ErrorLogging
             $this->loadingArea = "DefaultView";
         }
         $use_class = $this->findMasterClass();
+        error_log("Final try:" . $use_class);
         if (class_exists($use_class) == false) {
             $this->addError("Unsupported request");
             print json_encode([
@@ -103,7 +106,7 @@ abstract class Switchboard extends ErrorLogging
         if ($this->loadedObject->getLoadOk() == true) {
             $this->fininalize();
         }
-
+        $this->loadedObject->getoutput();
         $statussql = $this->loadedObject->getOutputObject()->getSwapTagBool("status");
         if (($statussql === false) || ($statussql === null)) {
             $this->config->getSQL()->flagError();
