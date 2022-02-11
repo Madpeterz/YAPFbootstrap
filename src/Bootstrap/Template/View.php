@@ -8,8 +8,8 @@ class View extends TableView
     {
         $waitingText = '
         <button class="btn btn-primary" type="button" disabled>
-  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-  Loading...
+<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+Loading...
 </button>';
         if ($loadingText != null) {
             $waitingText = $loadingText;

@@ -2,7 +2,7 @@
 
 namespace YAPF\Bootstrap\Template;
 
-use YAPF\Helpers\FunctionHelper;
+use YAPF\Framework\Helpers\FunctionHelper;
 
 class Form
 {

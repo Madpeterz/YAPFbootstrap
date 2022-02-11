@@ -2,7 +2,7 @@
 
 namespace YAPF\Bootstrap\ConfigBox;
 
-use YAPF\Config\SimpleConfig;
+use YAPF\Framework\Config\SimpleConfig;
 
 class BootstrapConfigBox extends SimpleConfig
 {
