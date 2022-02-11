@@ -104,7 +104,6 @@ abstract class Switchboard extends ErrorLogging
             $this->fininalize();
         }
 
-        $this->loadedObject->getoutput();
         $statussql = $this->loadedObject->getOutputObject()->getSwapTagBool("status");
         if (($statussql === false) || ($statussql === null)) {
             $this->config->getSQL()->flagError();
