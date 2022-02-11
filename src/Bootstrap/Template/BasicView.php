@@ -31,7 +31,7 @@ abstract class BasicView extends ErrorLogging
             $this->config->getSQL()->sqlRollBack();
             return;
         }
-        $this->sql->sqlSave(true);
+        $this->config->getSQL()->sqlSave(true);
     }
     public function process(): void
     {
