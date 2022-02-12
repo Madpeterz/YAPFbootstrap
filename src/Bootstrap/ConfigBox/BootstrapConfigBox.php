@@ -95,7 +95,7 @@ class BootstrapConfigBox extends SimpleConfig
             return;
         }
         if (getenv($envName) !== false) {
-            $this->flags[$envName] = getevn($envName);
+            $this->flags[$envName] = getenv($envName);
             return;
         }
         $this->flags[$envName] = $defaultValue;
