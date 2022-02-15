@@ -27,7 +27,7 @@ class Charts
     }
 
     protected bool $secondYaxis = false;
-    protected function enableSecondYAxis(bool $status = true): void
+    public function enableSecondYAxis(bool $status = true): void
     {
         $this->secondYaxis = $status;
     }
