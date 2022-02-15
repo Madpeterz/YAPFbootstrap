@@ -296,6 +296,35 @@ class Charts
 
     protected function createLineOptions(): void
     {
+        $scales = [];
+        $scales["yAxes"] = [];
+        $scales["yAxes"][] = [
+            "id" => "y",
+            "position" => "left",
+            "display" => true,
+            "ticks" => [
+                "reverse" => false,
+                "fontColor" => "#CBCBCB",
+            ],
+        ];
+        $scales["yAxes"][] = [
+            "id" => "y2",
+            "position" => "right",
+            "display" => $this->secondYaxis,
+            "ticks" => [
+                "reverse" => false,
+                "fontColor" => "#CBCBCB",
+            ],
+        ];
+        $scales["xAxes"] = [];
+        $scales["xAxes"][] = [
+            "display" => true,
+            "ticks" => [
+                "reverse" => false,
+                "fontColor" => "#CBCBCB",
+            ],
+        ];
+
         $this->jsonPacked["options"] = [
             "responsive" => true,
             "legend" => [
@@ -304,34 +333,7 @@ class Charts
                     "fontColor" => "black",
                     "fontSize" => 14,
                 ],
-                "scales" => [
-                    "yAxes" => [
-                        [
-                            "id" => "y",
-                            "position" => "left",
-                            "display" => true,
-                            "ticks" => [
-                            "reverse" => false,
-                            "fontColor" => "#CBCBCB",
-                            ],
-                        ],
-                        [
-                            "id" => "y2",
-                            "position" => "right",
-                            "display" => $this->secondYaxis,
-                            "ticks" => [
-                            "reverse" => false,
-                            "fontColor" => "#CBCBCB",
-                            ],
-                        ],
-                        "xAxes" => [
-                        "ticks" => [
-                            "reverse" => false,
-                            "fontColor" => "#CBCBCB",
-                        ],
-                        ],
-                    ],
-                ],
+                "scales" => $scales,
             ];
     }
 
