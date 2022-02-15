@@ -47,7 +47,6 @@ abstract class Switchboard extends ErrorLogging
         if ($step == 4) {
             $bits = ["App","Endpoint",$this->targetEndpoint,$this->loadingModule,"DefaultView"];
             $use_class = "\\" . implode("\\", $bits);
-            error_log("trying class:" . $use_class);
             if (class_exists($use_class) == false) {
                 return null;
             }
@@ -61,7 +60,6 @@ abstract class Switchboard extends ErrorLogging
             $loop++;
         }
         $use_class = "\\" . implode("\\", $bits);
-        error_log("trying class:" . $use_class);
         if (class_exists($use_class) == false) {
             return $this->findMasterClass($step + 1);
         }
