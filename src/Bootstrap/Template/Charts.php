@@ -305,25 +305,26 @@ class Charts
                     "fontSize" => 14,
                 ],
                 "scales" => [
-                    "y" => [
-                        "position" => "left",
-                        "display" => true,
-                        "ticks" => [
+                    "yAxes" => [
+                        [
+                            "id" => "y",
+                            "position" => "left",
+                            "display" => true,
+                            "ticks" => [
                             "reverse" => false,
-                            "fontColor" => "#DCDCDC",
+                            "fontColor" => "#CBCBCB",
+                            ],
                         ],
-                    ],
-                    "y2" => [
-                        "position" => "right",
-                        "display" => $this->secondYaxis,
-                        "ticks" => [
+                        [
+                            "id" => "y2",
+                            "position" => "right",
+                            "display" => $this->secondYaxis,
+                            "ticks" => [
                             "reverse" => false,
-                            "fontColor" => "#DCDCDC",
+                            "fontColor" => "#CBCBCB",
+                            ],
                         ],
-                        "grid" => [
-                            "drawOnChartArea" => false,
-                        ],
-                    ],
+                    ]
                     "xAxes" => [
                         "ticks" => [
                             "reverse" => false,
