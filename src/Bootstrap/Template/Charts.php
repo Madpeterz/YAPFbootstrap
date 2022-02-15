@@ -325,6 +325,7 @@ class Charts
             ],
         ];
 
+
         $this->jsonPacked["options"] = [
             "responsive" => true,
             "legend" => [
@@ -333,8 +334,9 @@ class Charts
                     "fontColor" => "black",
                     "fontSize" => 14,
                 ],
-                "scales" => $scales,
-            ];
+            ],
+            "scales" => $scales,
+        ];
     }
 
     protected function customize(): void
