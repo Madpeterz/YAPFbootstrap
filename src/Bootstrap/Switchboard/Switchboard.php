@@ -88,7 +88,6 @@ abstract class Switchboard extends ErrorLogging
             $this->loadingArea = "DefaultView";
         }
         $use_class = $this->findMasterClass();
-        error_log("Final try:" . $use_class);
         if (class_exists($use_class) == false) {
             $this->addError("Unsupported request");
             print json_encode([
