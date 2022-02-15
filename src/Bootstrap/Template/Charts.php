@@ -26,6 +26,11 @@ class Charts
         return json_encode($this->chartDataSets);
     }
 
+    protected bool $secondYaxis = false;
+    protected function enableSecondYAxis(bool $status = true): void
+    {
+        $this->secondYaxis = $status;
+    }
 
     /*
         Data setup
@@ -53,6 +58,9 @@ class Charts
      */
     protected function createDatasetEntryLine(array $dataset): void
     {
+        if (array_key_exists("yAxisID", $dataset) == false) {
+            $dataset["yAxisID"] = "y";
+        }
         if (array_key_exists("hoverOffset", $dataset) == false) {
             $dataset["borderWidth"] = 1;
         }
@@ -69,6 +77,7 @@ class Charts
             'backgroundColor' => "rgba(" . implode(", ", $this->darkenColor($dataset["borderColor"])) . ",0.35)",
             'tension' => 0.1,
             'fill' => true,
+            'yAxisID' => $dataset["yAxisID"],
         ];
     }
 
@@ -296,10 +305,23 @@ class Charts
                     "fontSize" => 14,
                 ],
                 "scales" => [
-                    "yAxes" => [
+                    "y" => [
+                        "position" => "left",
+                        "display" => true,
                         "ticks" => [
                             "reverse" => false,
                             "fontColor" => "#DCDCDC",
+                        ],
+                    ],
+                    "y2" => [
+                        "position" => "right",
+                        "display" => $this->secondYaxis,
+                        "ticks" => [
+                            "reverse" => false,
+                            "fontColor" => "#DCDCDC",
+                        ],
+                        "grid" => [
+                            "drawOnChartArea" => false,
                         ],
                     ],
                     "xAxes" => [
