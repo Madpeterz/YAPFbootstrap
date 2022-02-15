@@ -324,16 +324,15 @@ class Charts
                             "fontColor" => "#CBCBCB",
                             ],
                         ],
-                    ]
-                    "xAxes" => [
+                        "xAxes" => [
                         "ticks" => [
                             "reverse" => false,
                             "fontColor" => "#CBCBCB",
                         ],
+                        ],
                     ],
                 ],
-            ],
-        ];
+            ];
     }
 
     protected function customize(): void
