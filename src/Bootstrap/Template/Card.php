@@ -76,9 +76,7 @@ class Card
         if ($this->hasLink == true) {
             $offsite = true;
             if (FunctionHelper::strContains($this->linkAdd, "http") == false) {
-                if ($this->disableImageDomain == false) {
-                    $link_url = "[[SITE_URL]]" . $link_url;
-                }
+                $link_url = "[[SITE_URL]]" . $link_url;
                 $offsite = false;
             }
             $link_start = '<a target="_BLANK" rel="noreferrer" href="' . $link_url . '">';
@@ -92,7 +90,9 @@ class Card
             $imageUrl = $this->imagePath;
             $styleAddon = "";
             if (FunctionHelper::strContains($imageUrl, "http") == false) {
-                $imageUrl = "[[SITE_URL]]" . $imageUrl;
+                if ($this->disableImageDomain == false) {
+                    $imageUrl = "[[SITE_URL]]" . $imageUrl;
+                }
             }
             if ($this->limitImageHeight == true) {
                 $styleAddon = ' style="max-height: ' . $this->maxImageHeight . 'px" ';
