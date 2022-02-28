@@ -42,6 +42,7 @@ class Template extends SwapTags
         $this->tempalte_parts["footer"] = "</html>";
 
         $this->setSwapTag("SITE_NAME", $this->config->getSiteName());
+        $this->setSwapTag("SITE_URL", $this->config->getSiteURL());
         $this->setSwapTag("html_title_after", $this->config->getSiteName());
         $this->setSwapTag("html_title", "Page");
         $this->setSwapTag("html_cs_top", "");
