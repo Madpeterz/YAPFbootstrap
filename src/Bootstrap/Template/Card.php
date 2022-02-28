@@ -14,6 +14,7 @@ class Card
     protected string $linkAdd = "";
     protected bool $hasContent = false;
     protected string $content = "";
+    protected bool $disableImageDomain = false;
 
     protected bool $limitImageHeight = false;
     protected int $maxImageHeight = 100000;
@@ -30,6 +31,12 @@ class Card
     public function imageClass(string $class): Card
     {
         $this->imageClassText = $class;
+        return $this;
+    }
+
+    public function imageNoAttachDomain(): Card
+    {
+        $this->disableImageDomain = true;
         return $this;
     }
 
@@ -69,7 +76,9 @@ class Card
         if ($this->hasLink == true) {
             $offsite = true;
             if (FunctionHelper::strContains($this->linkAdd, "http") == false) {
-                $link_url = "[[SITE_URL]]" . $link_url;
+                if ($this->disableImageDomain == false) {
+                    $link_url = "[[SITE_URL]]" . $link_url;
+                }
                 $offsite = false;
             }
             $link_start = '<a target="_BLANK" rel="noreferrer" href="' . $link_url . '">';
