@@ -15,6 +15,9 @@ class Card
     protected bool $hasContent = false;
     protected string $content = "";
     protected bool $disableImageDomain = false;
+    protected bool $allowNotFoundImageSwap = true;
+    protected bool $useLazyLoadImage = false;
+    protected string $lazyLoadImage = "";
 
     protected bool $limitImageHeight = false;
     protected int $maxImageHeight = 100000;
@@ -68,6 +71,19 @@ class Card
         return $this;
     }
 
+    public function disableOnErrorImage(): Card
+    {
+        $this->allowNotFoundImageSwap = false;
+        return $this;
+    }
+
+    public function lazyLoad(string $holderURL): Card
+    {
+        $this->useLazyLoadImage = true;
+        $this->lazyLoadImage = $holderURL;
+        return $this;
+    }
+
     public function render(): string
     {
         $link_start = "";
@@ -98,7 +114,16 @@ class Card
                 $styleAddon = ' style="max-height: ' . $this->maxImageHeight . 'px" ';
             }
             $output .= $link_start;
-            $output .= '<img onerror="this.src=\'[[SITE_URL]]images/nopreview.png\'" src="';
+            $output .= '<img ';
+            if ($this->allowNotFoundImageSwap == true) {
+                $output .= 'onerror="this.src=\'[[SITE_URL]]images/nopreview.png\'"';
+            }
+            if ($this->useLazyLoadImage == true) {
+                $output .= ' data-load="' . $imageUrl . '"';
+                $imageUrl = $this->lazyLoadImage;
+                $this->imageClassText .= " el-image-swap";
+            }
+            $output .= ' src="';
             $output .= $imageUrl . '" class="card-img-top ';
             $output .= $this->imageClassText . '"';
             $output .= ' alt="Title image" ' . $styleAddon . '>';
