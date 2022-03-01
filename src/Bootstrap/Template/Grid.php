@@ -75,7 +75,7 @@ class Grid
             "col-xl-" . $chart[0],
         ];
 
-        $this->output .= '<div class="grid-margin ' . implode(", ", $sizeChart) . '">';
+        $this->output .= '<div class="grid-margin ' . implode(" ", $sizeChart) . '">';
     }
     public function closeRow(): void
     {
