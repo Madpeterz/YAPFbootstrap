@@ -28,24 +28,18 @@ class Grid
     public function addContent(string $content, int $size = 0, bool $center = false): void
     {
         if ($size > 0) {
-            $this->col($size);
-        }
-        if ($center == true) {
-            $this->output .= '<div class="d-flex justify-content-center">';
+            $this->col($size, $center);
         }
         $this->output .= $content;
-        if ($center == true) {
-            $this->output .= '</div>';
-        }
     }
-    public function col(int $size): void
+    public function col(int $size, bool $center = false): void
     {
         $this->closeCol();
         if (($this->col_value + $size) > 12) {
             $this->closeRow();
         }
         if ($this->row_open == false) {
-            $this->row();
+            $this->row($center);
         }
         $this->col_value += $size;
         $this->col_open = true;
@@ -93,10 +87,14 @@ class Grid
             $this->output .= '</div>';
         }
     }
-    protected function row(): void
+    protected function row(bool $centered): void
     {
         $this->closeRow();
-        $this->output .= '<div class="row">';
+        $addon = "";
+        if ($centered == true) {
+            $addon = " justify-content-md-center";
+        }
+        $this->output .= '<div class="row' . $addon . '">';
         $this->row_open = true;
     }
 }
