@@ -62,11 +62,11 @@ class Grid
         $chart = $lookup[$size];
 
         $sizeChart = [
-            "col-" . $chart[4],
-            "col-sm-" . $chart[3],
+            "col-" . $chart[0],
+            "col-sm-" . $chart[1],
             "col-md-" . $chart[2],
-            "col-lg-" . $chart[1],
-            "col-xl-" . $chart[0],
+            "col-lg-" . $chart[3],
+            "col-xl-" . $chart[4],
         ];
 
         $this->output .= '<div class="grid-margin ' . implode(" ", $sizeChart) . '">';
