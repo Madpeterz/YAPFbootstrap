@@ -8,6 +8,13 @@ class Grid
     protected $row_open = false;
     protected $col_open = false;
     protected $output = "";
+    protected $autoRowTrigger = true;
+
+    public function disableAutoRow(): void
+    {
+        $this->autoRowTrigger = false;
+    }
+
     public function getOutput(): string
     {
         $this->closeCol();
@@ -36,7 +43,9 @@ class Grid
     {
         $this->closeCol();
         if (($this->col_value + $size) > 12) {
-            $this->closeRow();
+            if ($this->autoRowTrigger == true) {
+                $this->closeRow();
+            }
         }
         if ($this->row_open == false) {
             $this->row($center);
