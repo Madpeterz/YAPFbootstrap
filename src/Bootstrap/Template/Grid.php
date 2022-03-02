@@ -32,7 +32,7 @@ class Grid
         }
         $this->output .= $content;
     }
-    public function col(int $size, bool $center = false): void
+    public function col(int $size, bool $center = false, bool $use_lookup_table = true): void
     {
         $this->closeCol();
         if (($this->col_value + $size) > 12) {
@@ -53,13 +53,15 @@ class Grid
             7 => [12,12,12,7,7],
             6 => [6,6,6,6,6],
             5 => [6,6,6,5,5],
-            4 => [6,6,6,4,4],
-            3 => [6,6,4,4,4],
-            2 => [6,6,4,4,4],
-            1 => [6,6,4,4,1],
+            4 => [6,6,4,4,4],
+            3 => [6,6,4,3,3],
+            2 => [6,6,2,2,2],
+            1 => [6,6,4,1,1],
         ];
-
-        $chart = $lookup[$size];
+        $chart = $size;
+        if ($use_lookup_table == true) {
+            $chart = $lookup[$size];
+        }
 
         $sizeChart = [
             "col-" . $chart[0],
