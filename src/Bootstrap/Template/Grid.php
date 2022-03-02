@@ -67,7 +67,7 @@ class Grid
             2 => [6,6,2,2,2],
             1 => [6,6,4,1,1],
         ];
-        $chart = $size;
+        $chart = [$size,$size,$size,$size,$size];
         if ($use_lookup_table == true) {
             $chart = $lookup[$size];
         }
