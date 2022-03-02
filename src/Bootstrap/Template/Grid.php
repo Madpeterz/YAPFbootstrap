@@ -9,10 +9,16 @@ class Grid
     protected $col_open = false;
     protected $output = "";
     protected $autoRowTrigger = true;
+    protected $addMargin = true;
 
     public function disableAutoRow(): void
     {
         $this->autoRowTrigger = false;
+    }
+
+    public function disableMargin(): void
+    {
+        $this->addMargin = false;
     }
 
     public function getOutput(): string
@@ -80,7 +86,11 @@ class Grid
             "col-xl-" . $chart[4],
         ];
 
-        $this->output .= '<div class="grid-margin ' . implode(" ", $sizeChart) . '">';
+        $margin = "grid-margin ";
+        if ($this->addMargin == false) {
+            $margin = "";
+        }
+        $this->output .= '<div class="' . $margin . '' . implode(" ", $sizeChart) . '">';
     }
     public function closeRow(): void
     {
