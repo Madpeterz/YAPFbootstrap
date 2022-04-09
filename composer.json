@@ -16,7 +16,7 @@
     "require": {
         "php": ">=7.4",
         "madpeterz/yetonemorephpframework": "^5.0",
-        "madpeterz/yapfinputfilter": "^2.0"
+        "madpeterz/yapfinputfilter": "^3.0"
     },
     "authors": [
         {
