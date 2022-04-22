@@ -106,7 +106,10 @@ abstract class Switchboard extends FunctionHelper
         $this->loadedObject->getOutputObject()->setSwapTag("area", $this->loadingArea);
         $this->loadedObject->getOutputObject()->setSwapTag("cache_status", "N/A");
         if ($this->config->getCacheDriver() != null) {
-            $this->loadedObject->getOutputObject()->setSwapTag("cache_status", json_encode($this->config->getCacheDriver()->getStatusCounters()));
+            $this->loadedObject->getOutputObject()->setSwapTag(
+                "cache_status",
+                json_encode($this->config->getCacheDriver()->getStatusCounters())
+            );
         }
         $this->loadedObject->process();
     }
