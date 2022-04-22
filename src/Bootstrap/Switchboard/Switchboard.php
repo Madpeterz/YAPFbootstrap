@@ -4,9 +4,9 @@ namespace YAPF\Bootstrap\Switchboard;
 
 use YAPF\Bootstrap\ConfigBox\BootstrapConfigBox;
 use YAPF\Bootstrap\Template\View;
-use YAPF\Core\ErrorControl\ErrorLogging;
+use YAPF\Framework\Helpers\FunctionHelper;
 
-abstract class Switchboard extends ErrorLogging
+abstract class Switchboard extends FunctionHelper
 {
     protected BootstrapConfigBox $config;
 
