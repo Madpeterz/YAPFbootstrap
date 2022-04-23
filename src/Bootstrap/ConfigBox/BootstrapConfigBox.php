@@ -24,6 +24,7 @@ class BootstrapConfigBox extends SimpleConfig
 
     // config Flags
     protected array $flags = [];
+    protected bool $dockerConfigLocked = false;
 
     public function __construct()
     {
@@ -47,14 +48,16 @@ class BootstrapConfigBox extends SimpleConfig
     protected function loadFromDocker(): void
     {
         if (getenv('SITE_CACHE_ENABLED') !== false) {
-            if (getenv('SITE_CACHE_ENABLED') == "true") {
-                $this->configCacheRedisTCP(getenv("SITE_CACHE_REDIS_HOST"));
-            }
-            $this->dockerConfigLocked = true; // disable all config functions
-            $this->setupCache();
-            $this->setupCacheTables();
-            $this->startCache();
+            return;
         }
+        if (getenv('SITE_CACHE_ENABLED') != "true") {
+            return;
+        }
+        $this->configCacheRedisTCP(getenv("SITE_CACHE_REDIS_HOST"));
+        $this->dockerConfigLocked = true; // disable all config functions
+        $this->setupCache();
+        $this->setupCacheTables();
+        $this->startCache();
     }
 
     /*
