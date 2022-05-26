@@ -4,7 +4,7 @@ namespace YAPF\Bootstrap\Template;
 
 use YAPF\Framework\Helpers\FunctionHelper;
 
-class Card
+class Card extends FunctionHelper
 {
     protected bool $hasImage = false;
     protected string $imagePath = "";
@@ -91,7 +91,7 @@ class Card
         $link_url = $this->linkAdd;
         if ($this->hasLink == true) {
             $offsite = true;
-            if (FunctionHelper::strContains($this->linkAdd, "http") == false) {
+            if (str_contains($this->linkAdd, "http") == false) {
                 $link_url = "[[SITE_URL]]" . $link_url;
                 $offsite = false;
             }
@@ -105,7 +105,7 @@ class Card
         if ($this->hasImage == true) {
             $imageUrl = $this->imagePath;
             $styleAddon = "";
-            if (FunctionHelper::strContains($imageUrl, "http") == false) {
+            if (str_contains($imageUrl, "http") == false) {
                 if ($this->disableImageDomain == false) {
                     $imageUrl = "[[SITE_URL]]" . $imageUrl;
                 }

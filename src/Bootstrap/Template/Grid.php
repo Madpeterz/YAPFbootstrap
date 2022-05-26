@@ -38,8 +38,12 @@ class Grid
     {
         $this->output .= $content;
     }
-    public function addContent(string $content, int $size = 0, bool $center = false, bool $use_lookup_table = true): void
-    {
+    public function addContent(
+        string $content,
+        int $size = 0,
+        bool $center = false,
+        bool $use_lookup_table = true
+    ): void {
         if ($size > 0) {
             $this->col($size, $center, $use_lookup_table);
         }

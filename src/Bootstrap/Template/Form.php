@@ -4,7 +4,7 @@ namespace YAPF\Bootstrap\Template;
 
 use YAPF\Framework\Helpers\FunctionHelper;
 
-class Form
+class Form extends FunctionHelper
 {
     protected string $targeturl = "";
     protected string $output = "";
@@ -58,7 +58,7 @@ class Form
         $this->enableGridRender();
         if ($this->formid == "") {
             $this->formid = "form"
-            . substr(FunctionHelper::sha256($this->mygrid->getOutput() . time() . rand(500, 1000)), 0, 12) . "a";
+            . substr($this->sha256($this->mygrid->getOutput() . time() . rand(500, 1000)), 0, 12) . "a";
         }
         $this->mygrid->closeRow();
         $ajax_mode = "ajax";
