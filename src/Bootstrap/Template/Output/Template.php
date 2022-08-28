@@ -98,7 +98,7 @@ class Template extends SwapTags
                 $this->setSwapTag("redirect", $this->redirect_to);
             }
         }
-        $this->swaptags["render"] = "Ajax";
+        
         print json_encode($this->swaptags);
     }
     protected function getCacheStatusMessage(): string
@@ -116,7 +116,6 @@ class Template extends SwapTags
     }
     public function renderPage(): void
     {
-        $this->swaptags["render"] = "View";
         $this->setSwapTag("MODULE", $this->config->getModule());
         $this->setSwapTag("AREA", $this->config->getArea());
         $this->setSwapTag("PAGE", $this->config->getPage());
