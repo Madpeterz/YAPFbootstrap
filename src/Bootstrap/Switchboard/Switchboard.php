@@ -91,7 +91,7 @@ abstract class Switchboard extends FunctionHelper
 
         $this->loadedObject = new $use_class();
         if ($this->loadedObject->getLoadOk() == true) {
-            $this->fininalize();
+            $this->finalize();
         }
         $this->loadedObject->getoutput();
         $statussql = $this->loadedObject->getOutputObject()->getSwapTagBool("status");
@@ -100,7 +100,7 @@ abstract class Switchboard extends FunctionHelper
         }
     }
 
-    protected function fininalize(): void
+    protected function finalize(): void
     {
         $this->loadedObject->getOutputObject()->setSwapTag("module", $this->loadingModule);
         $this->loadedObject->getOutputObject()->setSwapTag("area", $this->loadingArea);
