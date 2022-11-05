@@ -18,12 +18,27 @@ class Card
     protected bool $allowNotFoundImageSwap = true;
     protected bool $useLazyLoadImage = false;
     protected string $lazyLoadImage = "";
-    protected string $headerClass = "";
 
     protected bool $limitImageHeight = false;
     protected int $maxImageHeight = 100000;
 
     protected string $imageClassText = "";
+
+
+    protected string $categoryAddon = "";
+    protected string $headerClass = "";
+
+    public function setCategoryAddon(string $catAddon): Card
+    {
+        $this->categoryAddon = $catAddon;
+        return $this;
+    }
+
+    public function setHeaderClass(string $headerClass): Card
+    {
+        $this->headerClass = $headerClass;
+        return $this;
+    }
 
     public function imageHeight(int $max): Card
     {
@@ -44,11 +59,6 @@ class Card
         return $this;
     }
 
-    public function setHeaderClass(string $headerClass): Card
-    {
-        $this->headerClass = $headerClass;
-        return $this;
-    }
     public function setTitle(string $title): Card
     {
         $this->hasTitle = true;
@@ -120,7 +130,7 @@ class Card
                 $styleAddon = ' style="max-height: ' . $this->maxImageHeight . 'px" ';
             }
             $output .= $link_start;
-            $output .= '<img ';
+            $output .= '<div><img ';
             if ($this->allowNotFoundImageSwap == true) {
                 $output .= 'onerror="this.src=\'[[SITE_URL]]images/nopreview.png\'"';
             }
@@ -132,7 +142,7 @@ class Card
             $output .= ' src="';
             $output .= $imageUrl . '" class="card-img-top ';
             $output .= $this->imageClassText . '"';
-            $output .= ' alt="Title image" ' . $styleAddon . '>';
+            $output .= ' alt="Title image" ' . $styleAddon . '>' . $this->categoryAddon . '</div>';
             $output .= $link_end;
         }
         $output .= '<div class="card-body">';
