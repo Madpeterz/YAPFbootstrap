@@ -4,7 +4,7 @@ namespace YAPF\Bootstrap\Template;
 
 use YAPF\Framework\Helpers\FunctionHelper;
 
-class Card extends FunctionHelper
+class Card
 {
     protected bool $hasImage = false;
     protected string $imagePath = "";
@@ -18,6 +18,7 @@ class Card extends FunctionHelper
     protected bool $allowNotFoundImageSwap = true;
     protected bool $useLazyLoadImage = false;
     protected string $lazyLoadImage = "";
+    protected string $headerClass = "";
 
     protected bool $limitImageHeight = false;
     protected int $maxImageHeight = 100000;
@@ -43,6 +44,11 @@ class Card extends FunctionHelper
         return $this;
     }
 
+    public function setHeaderClass(string $headerClass): Card
+    {
+        $this->headerClass = $headerClass;
+        return $this;
+    }
     public function setTitle(string $title): Card
     {
         $this->hasTitle = true;
@@ -91,7 +97,7 @@ class Card extends FunctionHelper
         $link_url = $this->linkAdd;
         if ($this->hasLink == true) {
             $offsite = true;
-            if (str_contains($this->linkAdd, "http") == false) {
+            if (FunctionHelper::strContains($this->linkAdd, "http") == false) {
                 $link_url = "[[SITE_URL]]" . $link_url;
                 $offsite = false;
             }
@@ -105,7 +111,7 @@ class Card extends FunctionHelper
         if ($this->hasImage == true) {
             $imageUrl = $this->imagePath;
             $styleAddon = "";
-            if (str_contains($imageUrl, "http") == false) {
+            if (FunctionHelper::strContains($imageUrl, "http") == false) {
                 if ($this->disableImageDomain == false) {
                     $imageUrl = "[[SITE_URL]]" . $imageUrl;
                 }
@@ -131,7 +137,7 @@ class Card extends FunctionHelper
         }
         $output .= '<div class="card-body">';
         if ($this->hasTitle == true) {
-            $output .= $link_start . '<h5 class="card-title">' . $this->title . '</h5>' . $link_end;
+            $output .= $link_start . '<h5 class="' . $this->headerClass . ' card-title">' . $this->title . '</h5>' . $link_end;
         }
         if ($this->hasContent == true) {
             $output .= '<p class="card-text mb-3">' . $this->content . '</p>';
