@@ -24,6 +24,15 @@ class Card
 
     protected string $imageClassText = "";
 
+
+    protected string $categoryAddon = "";
+
+    public function setCategoryAddon(string $catAddon): Card
+    {
+        $this->categoryAddon = $catAddon;
+        return $this;
+    }
+
     public function imageHeight(int $max): Card
     {
         $this->limitImageHeight = true;
@@ -114,7 +123,7 @@ class Card
                 $styleAddon = ' style="max-height: ' . $this->maxImageHeight . 'px" ';
             }
             $output .= $link_start;
-            $output .= '<img ';
+            $output .= '<div><img ';
             if ($this->allowNotFoundImageSwap == true) {
                 $output .= 'onerror="this.src=\'[[SITE_URL]]images/nopreview.png\'"';
             }
@@ -126,7 +135,7 @@ class Card
             $output .= ' src="';
             $output .= $imageUrl . '" class="card-img-top ';
             $output .= $this->imageClassText . '"';
-            $output .= ' alt="Title image" ' . $styleAddon . '>';
+            $output .= ' alt="Title image" ' . $styleAddon . '>' . $this->categoryAddon . '</div>';
             $output .= $link_end;
         }
         $output .= '<div class="card-body">';
