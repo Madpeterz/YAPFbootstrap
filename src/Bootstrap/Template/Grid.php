@@ -45,7 +45,7 @@ class Grid
         }
         $this->output .= $content;
     }
-    public function col(int $size, bool $center = false, bool $use_lookup_table = true): void
+    public function col(int $size, bool $center = false, bool $use_lookup_table = true, bool $returnGridSize = false): void
     {
         $this->closeCol();
         if (($this->col_value + $size) > 12) {
@@ -85,6 +85,10 @@ class Grid
             "col-lg-" . $chart[3],
             "col-xl-" . $chart[4],
         ];
+
+        if ($returnGridSize == true) {
+            return implode(" ", $sizeChart);
+        }
 
         $margin = "grid-margin ";
         if ($this->addMargin == false) {
