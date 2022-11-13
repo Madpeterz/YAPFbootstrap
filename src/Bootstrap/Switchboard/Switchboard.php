@@ -15,6 +15,8 @@ abstract class Switchboard extends FunctionHelper
 
     protected string $loadingModule = "";
     protected string $loadingArea = "";
+    protected string $defaultModule = "Home";
+    protected string $defaultArea = "DefaultView";
 
     public function __construct()
     {
@@ -43,7 +45,7 @@ abstract class Switchboard extends FunctionHelper
             [],
             [$this->loadingArea,$this->config->getPage()],
             [$this->loadingArea,$this->config->getPage(),$this->config->getOption()],
-            ["DefaultView"],
+            [$this->defaultArea],
         ];
         foreach ($routes as $route) {
             $bits = array_merge(["App","Endpoint",$this->targetEndpoint,$this->loadingModule], $route);
@@ -62,7 +64,7 @@ abstract class Switchboard extends FunctionHelper
         $this->loadingArea = $this->config->getArea();
 
         if ($this->notSet($this->loadingModule) == true) {
-            $this->loadingModule = "Home";
+            $this->loadingModule = $this->defaultModule;
         }
 
         if ($this->accessChecks() == false) {
@@ -75,7 +77,7 @@ abstract class Switchboard extends FunctionHelper
             return;
         }
         if (in_array($this->loadingArea, ["","*"]) == true) {
-            $this->loadingArea = "DefaultView";
+            $this->loadingArea = $this->defaultArea;
         }
         $use_class = $this->findMasterClass();
         if ($use_class === null) {
@@ -105,10 +107,10 @@ abstract class Switchboard extends FunctionHelper
         $this->loadedObject->getOutputObject()->setSwapTag("module", $this->loadingModule);
         $this->loadedObject->getOutputObject()->setSwapTag("area", $this->loadingArea);
         $this->loadedObject->getOutputObject()->setSwapTag("cache_status", "N/A");
-        if ($this->config->getCacheDriver() != null) {
+        if ($this->config->getCacheWorker() != null) {
             $this->loadedObject->getOutputObject()->setSwapTag(
                 "cache_status",
-                json_encode($this->config->getCacheDriver()->getStatusCounters())
+                json_encode($this->config->getCacheWorker()->getStats())
             );
         }
         $this->loadedObject->process();

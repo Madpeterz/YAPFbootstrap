@@ -25,7 +25,6 @@ abstract class SwapTags
             ];
             $this->setSwapTag("SITE_URL", $this->config->getSiteURL());
         }
-        
     }
     /**
      * getAllTags
