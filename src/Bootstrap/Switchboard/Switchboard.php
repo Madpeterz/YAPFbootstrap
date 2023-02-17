@@ -97,9 +97,13 @@ abstract class Switchboard extends FunctionHelper
         }
         $this->loadedObject->getoutput();
         $statussql = $this->loadedObject->getOutputObject()->getSwapTagBool("status");
+
         if (($statussql === false) || ($statussql === null)) {
+            $this->config->getCacheWorker()?->shutdown(false);
             $this->config->getSQL()->flagError();
+            return;
         }
+        $this->config->getCacheWorker()?->shutdown(true);
     }
 
     protected function finalize(): void
