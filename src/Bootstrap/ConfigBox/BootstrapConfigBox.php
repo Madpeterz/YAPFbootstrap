@@ -28,7 +28,7 @@ class BootstrapConfigBox extends SimpleConfig
 
     public function __construct()
     {
-        foreach ($_ENV as $key => $value) {
+        foreach (getenv() as $key => $value) {
             $this->setFlag($key, $value, true);
         }
         parent::__construct();
