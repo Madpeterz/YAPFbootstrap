@@ -28,6 +28,9 @@ class BootstrapConfigBox extends SimpleConfig
 
     public function __construct()
     {
+        foreach ($_ENV as $key => $value) {
+            $this->setFlag($key, $value, true);
+        }
         parent::__construct();
         $this->setFlag("SITE_NAME", "bootstrap enabled");
         $this->setFlag("SITE_URL", "http://localhost/");
@@ -87,18 +90,14 @@ class BootstrapConfigBox extends SimpleConfig
     /*
         Flag control
     */
-    public function setFlag(string $envName, ?string $defaultValue, bool $overrideEnv = false): void
+    public function setFlag(string $envName, ?string $value, bool $overWrite = false): void
     {
-        if ($overrideEnv == true) {
-            $_ENV[$envName] = $defaultValue;
-            $this->flags[$envName] = $defaultValue;
-            return;
+        if (array_key_exists($envName, $this->flags) == true) {
+            if ($overWrite == false) {
+                return;
+            }
         }
-        if (getenv($envName) === false) {
-            $this->flags[$envName] = getenv($envName);
-            return;
-        }
-        $this->flags[$envName] = $defaultValue;
+        $this->flags[$envName] = $value;
     }
 
     public function getFlag(string $flagName): ?string
