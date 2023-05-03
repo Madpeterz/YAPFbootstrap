@@ -26,8 +26,8 @@ class Card
 
 
     protected string $categoryAddon = "";
-    protected string $headerClass = "";
 
+    protected string $headerClass = "";
     public function setCategoryAddon(string $catAddon): Card
     {
         $this->categoryAddon = $catAddon;

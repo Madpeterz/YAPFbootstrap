@@ -49,20 +49,9 @@ class Grid
         }
         $this->output .= $content;
     }
-    public function col(int $size, bool $center = false, bool $use_lookup_table = true): void
-    {
-        $this->closeCol();
-        if (($this->col_value + $size) > 12) {
-            if ($this->autoRowTrigger == true) {
-                $this->closeRow();
-            }
-        }
-        if ($this->row_open == false) {
-            $this->row($center);
-        }
-        $this->col_value += $size;
-        $this->col_open = true;
 
+    public function colSize(int $size, bool $use_lookup_table = false): string
+    {
         $lookup = [
             12 => [12,12,12,12,12],
             11 => [12,12,11,11,11],
@@ -89,12 +78,27 @@ class Grid
             "col-lg-" . $chart[3],
             "col-xl-" . $chart[4],
         ];
+        return implode(" ", $sizeChart);
+    }
+    public function col(int $size, bool $center = false, bool $use_lookup_table = true): void
+    {
+        $this->closeCol();
+        if (($this->col_value + $size) > 12) {
+            if ($this->autoRowTrigger == true) {
+                $this->closeRow();
+            }
+        }
+        if ($this->row_open == false) {
+            $this->row($center);
+        }
+        $this->col_value += $size;
+        $this->col_open = true;
 
         $margin = "grid-margin ";
         if ($this->addMargin == false) {
             $margin = "";
         }
-        $this->output .= '<div class="' . $margin . '' . implode(" ", $sizeChart) . '">';
+        $this->output .= '<div class="' . $margin . '' . $this->colSize($size, $use_lookup_table) . '">';
     }
     public function closeRow(): void
     {
