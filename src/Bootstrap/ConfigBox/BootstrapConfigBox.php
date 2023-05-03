@@ -48,11 +48,11 @@ class BootstrapConfigBox extends SimpleConfig
     protected function loadFromEnv(): void
     {
         $input = new InputFilter();
-        $cache_enable = $input->varInput(getenv('SITE_CACHE_ENABLED'))->asBool();
+        $cache_enable = $input->varInput($this->getFlag('SITE_CACHE_ENABLED'))->asBool();
         if ($cache_enable == false) {
             return;
         }
-        $this->configCacheRedisTCP(getenv("SITE_CACHE_REDIS_HOST"));
+        $this->configCacheRedisTCP($this->getFlag("SITE_CACHE_REDIS_HOST"));
         $this->setupCache();
         $this->setupCacheTables();
         $this->startCache();
@@ -89,11 +89,8 @@ class BootstrapConfigBox extends SimpleConfig
     */
     public function setFlag(string $envName, ?string $defaultValue, bool $overrideEnv = false): void
     {
-        if ($overrideEnv == false) {
-            if (getenv($envName) !== false) {
-                $this->flags[$envName] = getenv($envName);
-                return;
-            }
+        if ($overrideEnv == true) {
+            $_ENV[$envName] = $defaultValue;
         }
         $this->flags[$envName] = $defaultValue;
     }
@@ -101,7 +98,10 @@ class BootstrapConfigBox extends SimpleConfig
     public function getFlag(string $flagName): ?string
     {
         if (array_key_exists($flagName, $this->flags) == false) {
-            return null;
+            if (getenv($flagName) === false) {
+                return null;
+            }
+            $this->flags[$flagName] = getenv($flagName);
         }
         return $this->flags[$flagName];
     }
