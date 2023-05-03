@@ -32,8 +32,6 @@ class BootstrapConfigBox extends SimpleConfig
             $this->setFlag($key, $value, true);
         }
         parent::__construct();
-        $this->setFlag("SITE_NAME", "bootstrap enabled");
-        $this->setFlag("SITE_URL", "http://localhost/");
         $this->loadURL();
         $this->loadFromEnv();
     }
