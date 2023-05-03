@@ -3,6 +3,7 @@
 namespace YAPF\Bootstrap\ConfigBox;
 
 use YAPF\Framework\Config\SimpleConfig;
+use YAPF\InputFilter\InputFilter;
 
 class BootstrapConfigBox extends SimpleConfig
 {
@@ -31,7 +32,7 @@ class BootstrapConfigBox extends SimpleConfig
         $this->setFlag("SITE_NAME", "bootstrap enabled");
         $this->setFlag("SITE_URL", "http://localhost/");
         $this->loadURL();
-        $this->loadFromDocker();
+        $this->loadFromEnv();
     }
 
     public function getSiteName(): string
@@ -44,17 +45,17 @@ class BootstrapConfigBox extends SimpleConfig
         return $this->getFlag("SITE_URL");
     }
 
-    protected function loadFromDocker(): void
+    protected function loadFromEnv(): void
     {
-        if (getenv('SITE_CACHE_ENABLED') !== false) {
-            if (getenv('SITE_CACHE_ENABLED') == "true") {
-                $this->configCacheRedisTCP(getenv("SITE_CACHE_REDIS_HOST"));
-            }
-            $this->dockerConfigLocked = true; // disable all config functions
-            $this->setupCache();
-            $this->setupCacheTables();
-            $this->startCache();
+        $input = new InputFilter();
+        $cache_enable = $input->varInput(getenv('SITE_CACHE_ENABLED'))->asBool();
+        if ($cache_enable == false) {
+            return;
         }
+        $this->configCacheRedisTCP(getenv("SITE_CACHE_REDIS_HOST"));
+        $this->setupCache();
+        $this->setupCacheTables();
+        $this->startCache();
     }
 
     /*
@@ -86,18 +87,13 @@ class BootstrapConfigBox extends SimpleConfig
     /*
         Flag control
     */
-    public function setFlag(string $envName, ?string $defaultValue): void
+    public function setFlag(string $envName, ?string $defaultValue, bool $overrideEnv = false): void
     {
-        $allowSet = true;
-        if (array_key_exists($envName, $this->flags) == true) {
-            $allowSet = !$this->dockerConfigLocked;
-        }
-        if ($allowSet == false) {
-            return;
-        }
-        if (getenv($envName) !== false) {
-            $this->flags[$envName] = getenv($envName);
-            return;
+        if ($overrideEnv == false) {
+            if (getenv($envName) !== false) {
+                $this->flags[$envName] = getenv($envName);
+                return;
+            }
         }
         $this->flags[$envName] = $defaultValue;
     }

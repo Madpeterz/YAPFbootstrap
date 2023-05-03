@@ -98,25 +98,24 @@ class Template extends SwapTags
                 $this->setSwapTag("redirect", $this->redirect_to);
             }
         }
-        $this->swaptags["render"] = "Ajax";
+
         print json_encode($this->swaptags);
     }
     protected function getCacheStatusMessage(): string
     {
-        if ($this->config->getCacheDriver() == null) {
+        if ($this->config->getCacheWorker() == null) {
             return "N/A";
         }
-        $this->config->getCacheDriver()->shutdown();
         $output = "Connected - Yes - ";
-        if ($this->config->getCacheDriver()->getStatusConnected() == false) {
+        if ($this->config->getCacheWorker()->getDriver()->connected() == false) {
             $output = "Connected - No - ";
         }
-        $output .= json_encode($this->config->getCacheDriver()->getStatusCounters());
+        $this->config->getCacheWorker()->shutdown();
+        $output .= json_encode($this->config->getCacheWorker()->getStats());
         return $output;
     }
     public function renderPage(): void
     {
-        $this->swaptags["render"] = "View";
         $this->setSwapTag("MODULE", $this->config->getModule());
         $this->setSwapTag("AREA", $this->config->getArea());
         $this->setSwapTag("PAGE", $this->config->getPage());

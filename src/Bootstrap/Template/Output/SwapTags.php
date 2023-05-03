@@ -23,8 +23,8 @@ abstract class SwapTags
             "HTML_JS_ON_READY" => "",
             "HTML_CSS_TOP" => "",
             ];
+            $this->setSwapTag("SITE_URL", $this->config->getSiteURL());
         }
-        $this->setSwapTag("SITE_URL", $this->config->getSiteURL());
     }
     /**
      * getAllTags
@@ -50,6 +50,12 @@ abstract class SwapTags
             $this->swaptags[$tagname] = 0;
         }
         return intval($this->swaptags[$tagname]);
+    }
+    public function clearFlag(string $tagname): void
+    {
+        if (array_key_exists($tagname, $this->swaptags) == true) {
+            unset($this->swaptags[$tagname]);
+        }
     }
 
     /**

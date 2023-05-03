@@ -132,10 +132,6 @@ class Charts
      */
     protected function rgbToHsl($r, $g, $b): array
     {
-        $oldR = $r;
-        $oldG = $g;
-        $oldB = $b;
-
         $r /= 255;
         $g /= 255;
         $b /= 255;
@@ -143,16 +139,13 @@ class Charts
         $max = max($r, $g, $b);
         $min = min($r, $g, $b);
 
-        $h;
-        $s;
         $l = ( $max + $min ) / 2;
         $d = $max - $min;
+        $h = 0;
+        $s = 0;
 
-        if ($d == 0) {
-            $h = $s = 0; // achromatic
-        } else {
+        if ($d != 0) {
             $s = $d / ( 1 - abs(2 * $l - 1) );
-
             switch ($max) {
                 case $r:
                     $h = 60 * fmod(( ( $g - $b ) / $d ), 6);
@@ -160,7 +153,6 @@ class Charts
                         $h += 360;
                     }
                     break;
-
                 case $g:
                     $h = 60 * ( ( $b - $r ) / $d + 2 );
                     break;
@@ -170,7 +162,6 @@ class Charts
                     break;
             }
         }
-
         return [ "h" => round($h, 2), "s" => round($s, 2), "l" => round($l, 2) ];
     }
 
@@ -183,14 +174,17 @@ class Charts
      */
     protected function hslToRgb(int $h, float $s, float $l): array
     {
-        $r;
-        $g;
-        $b;
+        $r = 0;
+        $g = 0;
+        $b = 0;
 
         $c = ( 1 - abs(2 * $l - 1) ) * $s;
         $x = $c * ( 1 - abs(fmod(( $h / 60 ), 2) - 1) );
         $m = $l - ( $c / 2 );
 
+        $r = $c;
+        $g = 0;
+        $b = $x;
         if ($h < 60) {
             $r = $c;
             $g = $x;
@@ -211,10 +205,6 @@ class Charts
             $r = $x;
             $g = 0;
             $b = $c;
-        } else {
-            $r = $c;
-            $g = 0;
-            $b = $x;
         }
 
         $r = ( $r + $m ) * 255;

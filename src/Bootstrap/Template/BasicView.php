@@ -4,9 +4,9 @@ namespace YAPF\Bootstrap\Template;
 
 use YAPF\Bootstrap\ConfigBox\BootstrapConfigBox;
 use YAPF\Bootstrap\Template\Output\Template;
-use YAPF\Core\ErrorControl\ErrorLogging;
+use YAPF\Framework\Helpers\FunctionHelper;
 
-abstract class BasicView extends ErrorLogging
+abstract class BasicView extends FunctionHelper
 {
     protected array $allowDisallow = [0 => "Disabled",1 => "Allow"];
     protected array $yesNo = [0 => "No",1 => "Yes"];

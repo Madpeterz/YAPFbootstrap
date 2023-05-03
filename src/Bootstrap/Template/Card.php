@@ -27,9 +27,16 @@ class Card
 
     protected string $categoryAddon = "";
 
+    protected string $headerClass = "";
     public function setCategoryAddon(string $catAddon): Card
     {
         $this->categoryAddon = $catAddon;
+        return $this;
+    }
+
+    public function setHeaderClass(string $headerClass): Card
+    {
+        $this->headerClass = $headerClass;
         return $this;
     }
 
@@ -140,7 +147,7 @@ class Card
         }
         $output .= '<div class="card-body">';
         if ($this->hasTitle == true) {
-            $output .= $link_start . '<h5 class="card-title">' . $this->title . '</h5>' . $link_end;
+            $output .= $link_start . '<h5 class="' . $this->headerClass . ' card-title">' . $this->title . '</h5>' . $link_end;
         }
         if ($this->hasContent == true) {
             $output .= '<p class="card-text mb-3">' . $this->content . '</p>';

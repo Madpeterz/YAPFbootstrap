@@ -4,9 +4,9 @@ namespace YAPF\Bootstrap\Switchboard;
 
 use YAPF\Bootstrap\ConfigBox\BootstrapConfigBox;
 use YAPF\Bootstrap\Template\View;
-use YAPF\Core\ErrorControl\ErrorLogging;
+use YAPF\Framework\Helpers\FunctionHelper;
 
-abstract class Switchboard extends ErrorLogging
+abstract class Switchboard extends FunctionHelper
 {
     protected BootstrapConfigBox $config;
 
@@ -15,6 +15,8 @@ abstract class Switchboard extends ErrorLogging
 
     protected string $loadingModule = "";
     protected string $loadingArea = "";
+    protected string $defaultModule = "Home";
+    protected string $defaultArea = "DefaultView";
 
     public function __construct()
     {
@@ -43,7 +45,7 @@ abstract class Switchboard extends ErrorLogging
             [],
             [$this->loadingArea,$this->config->getPage()],
             [$this->loadingArea,$this->config->getPage(),$this->config->getOption()],
-            ["DefaultView"],
+            [$this->defaultArea],
         ];
         foreach ($routes as $route) {
             $bits = array_merge(["App","Endpoint",$this->targetEndpoint,$this->loadingModule], $route);
@@ -62,7 +64,7 @@ abstract class Switchboard extends ErrorLogging
         $this->loadingArea = $this->config->getArea();
 
         if ($this->notSet($this->loadingModule) == true) {
-            $this->loadingModule = "Home";
+            $this->loadingModule = $this->defaultModule;
         }
 
         if ($this->accessChecks() == false) {
@@ -75,7 +77,7 @@ abstract class Switchboard extends ErrorLogging
             return;
         }
         if (in_array($this->loadingArea, ["","*"]) == true) {
-            $this->loadingArea = "DefaultView";
+            $this->loadingArea = $this->defaultArea;
         }
         $use_class = $this->findMasterClass();
         if ($use_class === null) {
@@ -91,22 +93,29 @@ abstract class Switchboard extends ErrorLogging
 
         $this->loadedObject = new $use_class();
         if ($this->loadedObject->getLoadOk() == true) {
-            $this->fininalize();
+            $this->finalize();
         }
         $this->loadedObject->getoutput();
         $statussql = $this->loadedObject->getOutputObject()->getSwapTagBool("status");
+
         if (($statussql === false) || ($statussql === null)) {
+            $this->config->getCacheWorker()?->shutdown(false);
             $this->config->getSQL()->flagError();
+            return;
         }
+        $this->config->getCacheWorker()?->shutdown(true);
     }
 
-    protected function fininalize(): void
+    protected function finalize(): void
     {
         $this->loadedObject->getOutputObject()->setSwapTag("module", $this->loadingModule);
         $this->loadedObject->getOutputObject()->setSwapTag("area", $this->loadingArea);
         $this->loadedObject->getOutputObject()->setSwapTag("cache_status", "N/A");
-        if ($this->config->getCacheDriver() != null) {
-            $this->loadedObject->getOutputObject()->setSwapTag("cache_status", json_encode($this->config->getCacheDriver()->getStatusCounters()));
+        if ($this->config->getCacheWorker() != null) {
+            $this->loadedObject->getOutputObject()->setSwapTag(
+                "cache_status",
+                json_encode($this->config->getCacheWorker()->getStats())
+            );
         }
         $this->loadedObject->process();
     }
