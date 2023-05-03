@@ -91,6 +91,12 @@ class BootstrapConfigBox extends SimpleConfig
     {
         if ($overrideEnv == true) {
             $_ENV[$envName] = $defaultValue;
+            $this->flags[$envName] = $defaultValue;
+            return;
+        }
+        if (getenv($envName) === false) {
+            $this->flags[$envName] = getenv($envName);
+            return;
         }
         $this->flags[$envName] = $defaultValue;
     }
@@ -98,10 +104,7 @@ class BootstrapConfigBox extends SimpleConfig
     public function getFlag(string $flagName): ?string
     {
         if (array_key_exists($flagName, $this->flags) == false) {
-            if (getenv($flagName) === false) {
-                return null;
-            }
-            $this->flags[$flagName] = getenv($flagName);
+            return null;
         }
         return $this->flags[$flagName];
     }
