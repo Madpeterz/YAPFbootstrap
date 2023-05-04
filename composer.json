@@ -18,6 +18,9 @@
         "madpeterz/yetonemorephpframework": "^7.0",
         "madpeterz/yapfinputfilter": "^4.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
     "authors": [
         {
             "name": "Madpeter",
@@ -27,6 +30,9 @@
     "scripts": {
         "phpcs": "phpcs",
         "phpcbf": "phpcbf",
-        "phpunit": "phpunit"
-    }
+        "phpunit": "phpunit",
+        "dev-test": [
+            "phpunit --colors=always --configuration phpunit.xml --testdox --testsuite All"
+        ]
+    } 
 }

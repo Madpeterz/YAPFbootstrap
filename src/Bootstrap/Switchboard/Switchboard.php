@@ -104,6 +104,7 @@ abstract class Switchboard extends FunctionHelper
             return;
         }
         $this->config->getCacheWorker()?->shutdown(true);
+        $this->config->shutdown();
     }
 
     protected function finalize(): void
