@@ -107,7 +107,7 @@ class Card
         $link_url = $this->linkAdd;
         if ($this->hasLink == true) {
             $offsite = true;
-            if (FunctionHelper::strContains($this->linkAdd, "http") == false) {
+            if (str_contains($this->linkAdd, "http") == false) {
                 $link_url = "[[SITE_URL]]" . $link_url;
                 $offsite = false;
             }
@@ -121,7 +121,7 @@ class Card
         if ($this->hasImage == true) {
             $imageUrl = $this->imagePath;
             $styleAddon = "";
-            if (FunctionHelper::strContains($imageUrl, "http") == false) {
+            if (str_contains($imageUrl, "http") == false) {
                 if ($this->disableImageDomain == false) {
                     $imageUrl = "[[SITE_URL]]" . $imageUrl;
                 }
@@ -147,7 +147,8 @@ class Card
         }
         $output .= '<div class="card-body">';
         if ($this->hasTitle == true) {
-            $output .= $link_start . '<h5 class="' . $this->headerClass . ' card-title">' . $this->title . '</h5>' . $link_end;
+            $output .= $link_start . '<h5 class="' . $this->headerClass . ' card-title">' .
+            $this->title . '</h5>' . $link_end;
         }
         if ($this->hasContent == true) {
             $output .= '<p class="card-text mb-3">' . $this->content . '</p>';
