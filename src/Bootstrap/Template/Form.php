@@ -58,7 +58,7 @@ class Form extends FunctionHelper
         $this->enableGridRender();
         if ($this->formid == "") {
             $this->formid = "form"
-            . substr($this->sha256($this->mygrid->getOutput() . time() . rand(500, 1000)), 0, 12) . "a";
+                . substr($this->sha256($this->mygrid->getOutput() . time() . rand(500, 1000)), 0, 12) . "a";
         }
         $this->mygrid->closeRow();
         $ajax_mode = "ajax";
@@ -70,17 +70,17 @@ class Form extends FunctionHelper
         }
         if ($this->mode == "post") {
             $this->mygrid->addBefore('<form id="' . $this->formid . '" action="[[SITE_URL]]' .
-            $this->targeturl . '" method="POST" class="form ' . $ajax_mode . '">');
+                $this->targeturl . '" method="POST" class="form ' . $ajax_mode . '">');
         } else {
             $this->mygrid->addBefore('<form id="' . $this->formid . '" action="[[SITE_URL]]' .
-            $this->targeturl . '" method="GET" class="form">');
+                $this->targeturl . '" method="GET" class="form">');
         }
         $mgtop = "mt-4";
         if ($no_margin_top == true) {
             $mgtop = "";
         }
         $this->mygrid->addAfter('<div class="row ' . $mgtop . '"><div class="col-12"><button type="submit" '
-        . 'class="btn btn-' . $buttonclass . '">' . $buttontext . '</button></div></div></form>');
+            . 'class="btn btn-' . $buttonclass . '">' . $buttontext . '</button></div></div></form>');
         return $this->mygrid->getOutput();
     }
     public function required(bool $status): void
@@ -124,7 +124,7 @@ class Form extends FunctionHelper
     {
         $this->enableGridRender();
         $this->mygrid->addContent('<label for="' . $name . '" id="'
-        . $name . 'label" class="col-6 col-form-label">' . $label . '</label>@NL@');
+            . $name . 'label" class="col-6 col-form-label">' . $label . '</label>@NL@');
     }
     public function textarea(
         string $name,
@@ -144,7 +144,7 @@ class Form extends FunctionHelper
             $addon = 'data-lengthmax="' . $max_length . '"';
         }
         $this->mygrid->addContent('<textarea class="' . $classUsed . '" '
-        . $addon . ' id="' . $name . '" name="' . $name . '"');
+            . $addon . ' id="' . $name . '" name="' . $name . '"');
         $this->mygrid->addContent(' placeholder="' . $placeholder . '" ' . $this->requiredAddon() . '');
         $this->mygrid->addContent(' rows="' . $rows . '">' . $value . '</textarea>@NL@');
         $this->endField();
@@ -172,9 +172,9 @@ class Form extends FunctionHelper
         }
 
         $this->mygrid->addContent('<input type="' . $mode . '" ' . $addon . ' class="'
-        . $classUsed . '" name="' . $name . '" id="' . $name . '"');
+            . $classUsed . '" name="' . $name . '" id="' . $name . '"');
         $this->mygrid->addContent(' value="' . $value . '" placeholder="'
-        . $placeholder . '" ' . $this->requiredAddon() . '');
+            . $placeholder . '" ' . $this->requiredAddon() . '');
         if ($readonly == true) {
             $this->mygrid->addContent(' readonly');
         }
@@ -198,14 +198,14 @@ class Form extends FunctionHelper
             $this->startField();
         }
         $this->mygrid->addContent('<input data-lengthmin="' . $max_length . '" data-lengthmax="'
-        . $max_length . '" type="'
-        . $mode . '" class="form-control inputwithlimit" id="' . $name . '" name="' . $name . '"');
+            . $max_length . '" type="'
+            . $mode . '" class="form-control inputwithlimit" id="' . $name . '" name="' . $name . '"');
         $this->mygrid->addContent(' value="' . $value . '" placeholder="'
-         . $placeholder . '" ' . $this->requiredAddon() . '');
-         $this->mygrid->addContent(' >');
+            . $placeholder . '" ' . $this->requiredAddon() . '');
+        $this->mygrid->addContent(' >');
         if (($value !== null) && ($value != "00000000-0000-0000-0000-000000000000")) {
             $this->mygrid->addContent('<a href="http://secondlife.com/app/image/' . $value . '/1" target="_blank">'
-            . '<i class="fas fa-images"></i></a> @NL@');
+                . '<i class="fas fa-images"></i></a> @NL@');
         }
         if ($mode != "hidden") {
             $this->endField();
@@ -217,7 +217,11 @@ class Form extends FunctionHelper
     }
     public function hiddenInput(string $name, ?string $value): void
     {
-        $this->textInput($name, $name, strlen($value), $value, "", "", "hidden");
+        $length = 0;
+        if ($value !== null) {
+            $length = strlen($value);
+        }
+        $this->textInput($name, $name, $length, $value, "", "", "hidden");
     }
     public function numberInput(string $name, string $label, ?int $value, int $max_length, string $placeholder): void
     {
@@ -235,7 +239,7 @@ class Form extends FunctionHelper
                 $selected = " SELECTED";
             }
             $this->mygrid->addContent("<option value='" . $optval . "' " . $selected . ">"
-            . $opttext . "</option>@NL@");
+                . $opttext . "</option>@NL@");
         }
         $this->mygrid->addContent('</select>@NL@');
         $this->endField();
