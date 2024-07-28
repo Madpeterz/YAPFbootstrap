@@ -43,12 +43,12 @@ abstract class Switchboard extends FunctionHelper
         $routes = [
             [$this->loadingArea],
             [],
-            [$this->loadingArea,$this->config->getPage()],
-            [$this->loadingArea,$this->config->getPage(),$this->config->getOption()],
+            [$this->loadingArea, $this->config->getPage()],
+            [$this->loadingArea, $this->config->getPage(), $this->config->getOption()],
             [$this->defaultArea],
         ];
         foreach ($routes as $route) {
-            $bits = array_merge(["App","Endpoint",$this->targetEndpoint,$this->loadingModule], $route);
+            $bits = array_merge(["App", "Endpoint", $this->targetEndpoint, $this->loadingModule], $route);
             $use_class = "\\" . implode("\\", $bits);
             if (class_exists($use_class) == false) {
                 continue;
@@ -73,19 +73,19 @@ abstract class Switchboard extends FunctionHelper
             print json_encode([
                 "status" => "0",
                 "message" => "badly formated request",
-                ]);
+            ]);
             return;
         }
-        if (in_array($this->loadingArea, ["","*"]) == true) {
+        if (in_array($this->loadingArea, ["", "*"]) == true) {
             $this->loadingArea = $this->defaultArea;
         }
         $use_class = $this->findMasterClass();
         if ($use_class === null) {
             $this->addError("Unsupported request");
             print json_encode([
-            "status" => "0",
-            "message" => "[" . $this->loadingModule . " | "
-            . $this->loadingArea . " | " . $this->config->getPage() . "] Unsupported",
+                "status" => "0",
+                "message" => "[" . $this->loadingModule . " | "
+                    . $this->loadingArea . " | " . $this->config->getPage() . "] Unsupported",
             ]);
             http_response_code(501);
             return;
@@ -98,12 +98,10 @@ abstract class Switchboard extends FunctionHelper
         $this->loadedObject->getoutput();
         $statussql = $this->loadedObject->getOutputObject()->getSwapTagBool("status");
 
-        if (($statussql === false) || ($statussql === null)) {
-            $this->config->getCacheWorker()?->shutdown(false);
+        if ($statussql === false) {
             $this->config->getSQL()->flagError();
             return;
         }
-        $this->config->getCacheWorker()?->shutdown(true);
         $this->config->shutdown();
     }
 
@@ -111,13 +109,6 @@ abstract class Switchboard extends FunctionHelper
     {
         $this->loadedObject->getOutputObject()->setSwapTag("module", $this->loadingModule);
         $this->loadedObject->getOutputObject()->setSwapTag("area", $this->loadingArea);
-        $this->loadedObject->getOutputObject()->setSwapTag("cache_status", "N/A");
-        if ($this->config->getCacheWorker() != null) {
-            $this->loadedObject->getOutputObject()->setSwapTag(
-                "cache_status",
-                json_encode($this->config->getCacheWorker()->getStats())
-            );
-        }
         $this->loadedObject->process();
     }
 }

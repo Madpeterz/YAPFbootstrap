@@ -33,7 +33,6 @@ class BootstrapConfigBox extends SimpleConfig
         }
         parent::__construct();
         $this->loadURL();
-        $this->loadFromEnv();
     }
 
     public function getSiteName(): string
@@ -45,27 +44,6 @@ class BootstrapConfigBox extends SimpleConfig
     {
         return $this->getFlag("SITE_URL");
     }
-
-    protected function loadFromEnv(): void
-    {
-        $input = new InputFilter();
-        $cache_enable = $input->varInput($this->getFlag('SITE_CACHE_ENABLED'))->asBool();
-        if ($cache_enable == false) {
-            return;
-        }
-        $this->configCacheRedisTCP($this->getFlag("SITE_CACHE_REDIS_HOST"));
-        $this->setupCache();
-        $this->setupCacheTables();
-        $this->startCache();
-    }
-
-    /*
-        Tables to enable with cache
-    */
-    protected function setupCacheTables(): void
-    {
-    }
-
     /*
         Folder control
     */
@@ -163,7 +141,7 @@ class BootstrapConfigBox extends SimpleConfig
             $this->module = urldecode($bits[0]);
         } elseif (count($bits) >= 2) {
             if (count($bits) >= 1) {
-                $this->module = $bits[0 ];
+                $this->module = $bits[0];
             }
             if (count($bits) >= 2) {
                 $this->area = $bits[1];

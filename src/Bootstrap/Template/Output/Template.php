@@ -10,7 +10,7 @@ class Template extends SwapTags
 
     protected $tempalte_parts = [];
     protected $render_layout = "[[topper]][[header]][[body_start]][[left_content]]"
-    . "[[center_content]][[right_content]][[body_end]][[footer]]";
+        . "[[center_content]][[right_content]][[body_end]][[footer]]";
     protected $redirect_enabled = false;
     protected $redirect_offsite = false;
     protected $redirect_to = "";
@@ -48,7 +48,6 @@ class Template extends SwapTags
         $this->setSwapTag("html_cs_top", "");
         $this->setSwapTag("html_js_onready", "");
         $this->setSwapTag("html_js_bottom", "");
-        $this->setSwapTag("cache_status", "Not used");
     }
 
     public function __construct(bool $with_defaults = true)
@@ -101,25 +100,11 @@ class Template extends SwapTags
 
         print json_encode($this->swaptags);
     }
-    protected function getCacheStatusMessage(): string
-    {
-        if ($this->config->getCacheWorker() == null) {
-            return "N/A";
-        }
-        $output = "Connected - Yes - ";
-        if ($this->config->getCacheWorker()->getDriver()->connected() == false) {
-            $output = "Connected - No - ";
-        }
-        $this->config->getCacheWorker()->shutdown();
-        $output .= json_encode($this->config->getCacheWorker()->getStats());
-        return $output;
-    }
     public function renderPage(): void
     {
         $this->setSwapTag("MODULE", $this->config->getModule());
         $this->setSwapTag("AREA", $this->config->getArea());
         $this->setSwapTag("PAGE", $this->config->getPage());
-        $this->setSwapTag("cache_status", "Cache: " . $this->getCacheStatusMessage());
 
         if ($this->redirect_enabled == true) {
             if ($this->redirect_offsite == true) {
@@ -155,7 +140,7 @@ class Template extends SwapTags
     {
         $this->loadTemplate(
             "sidemenu",
-            ["topper","header","body_start","left_content","center_content","body_end","modals","footer"]
+            ["topper", "header", "body_start", "left_content", "center_content", "body_end", "modals", "footer"]
         );
         $this->defaultSwapTags();
     }
