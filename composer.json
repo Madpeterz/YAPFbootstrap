@@ -10,12 +10,12 @@
     },
     "config": {
         "platform": {
-            "php": "8.2.4"
+            "php": "8.4.3"
         }
     },
     "require": {
-        "php": ">=8.2.4",
-        "madpeterz/yetonemorephpframework": "^8.0",
+        "php": ">=8.4.3",
+        "madpeterz/yetonemorephpframework": "^9.0",
         "madpeterz/yapfinputfilter": "^4.0"
     },
     "require-dev": {
