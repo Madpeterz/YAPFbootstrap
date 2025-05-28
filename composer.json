@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=8.4.3",
-        "madpeterz/yetonemorephpframework": "^9.0",
+        "madpeterz/yetonemorephpframework": "8.*",
         "madpeterz/yapfinputfilter": "^4.0"
     },
     "require-dev": {
