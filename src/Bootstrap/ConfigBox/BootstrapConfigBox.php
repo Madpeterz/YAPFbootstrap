@@ -7,6 +7,17 @@ use YAPF\InputFilter\InputFilter;
 
 class BootstrapConfigBox extends SimpleConfig
 {
+    // system flags
+    protected bool $callWaitFor = false;
+    public function enableWaitFor(): void
+    {
+        $this->callWaitFor = true;
+    }
+    public function getCallWaitFor(): bool
+    {
+        return $this->callWaitFor;
+    }
+
     // url switchs
     protected string $page = "";
     protected string $module = "";

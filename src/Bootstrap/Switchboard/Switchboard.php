@@ -103,6 +103,14 @@ abstract class Switchboard extends FunctionHelper
             return;
         }
         $this->config->shutdown();
+        if ($this->config->getCallWaitFor() == true) {
+            if (function_exists('fastcgi_finish_request')) {
+                // this is a hack to force the server to send the response to the client
+                // while allowing stuff to happen in the background
+                fastcgi_finish_request();
+            }
+            $this->loadedObject->waitFor();
+        }
     }
 
     protected function finalize(): void

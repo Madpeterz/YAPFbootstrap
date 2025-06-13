@@ -8,6 +8,10 @@ use YAPF\Framework\Helpers\FunctionHelper;
 
 abstract class BasicView extends FunctionHelper
 {
+    public function waitFor(): void
+    {
+        return;
+    }
     protected array $allowDisallow = [0 => "Disabled",1 => "Allow"];
     protected array $yesNo = [0 => "No",1 => "Yes"];
     protected array $disableEnable = [false => "Disabled",true => "Enabled"];
