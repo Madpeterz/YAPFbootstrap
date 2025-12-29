@@ -8,14 +8,9 @@
             "YAPF\\Bootstrap\\": "src/Bootstrap"
         }
     },
-    "config": {
-        "platform": {
-            "php": "8.2"
-        }
-    },
     "require": {
         "php": ">=8.2",
-        "madpeterz/yetonemorephpframework": "8.*",
+        "madpeterz/yetonemorephpframework": "9.*",
         "madpeterz/yapfinputfilter": "^4.0"
     },
     "require-dev": {
