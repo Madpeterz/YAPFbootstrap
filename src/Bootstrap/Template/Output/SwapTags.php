@@ -76,7 +76,7 @@ abstract class SwapTags
         }
         return $this->swaptags[$tagname];
     }
-    public function addSwapTagString(string $tagname, string $add_me = null): ?string
+    public function addSwapTagString(string $tagname, ?string $add_me = null): ?string
     {
         $current = $this->getSwapTagString($tagname);
         $current .= $add_me;
@@ -99,7 +99,7 @@ abstract class SwapTags
         $this->swaptags[$tagname] = $newvalue;
         return $this->swaptags[$tagname];
     }
-    public function pageTitle(string $newvalue = null): string
+    public function pageTitle(?string $newvalue = null): string
     {
         if ($newvalue != null) {
             $this->setSwapTag("PAGE_TITLE", $newvalue);
@@ -111,7 +111,7 @@ abstract class SwapTags
      * Creates a new metatag
      * @return mixed[]
      */
-    public function metaTags(string $add_tag = null): array
+    public function metaTags(?string $add_tag = null): array
     {
         if (array_key_exists("META_TAGS", $this->swaptags) == false) {
             $this->swaptags["META_TAGS"] = [];

@@ -126,7 +126,7 @@ class BootstrapConfigBox extends SimpleConfig
         $this->area = ucfirst($area);
     }
 
-    protected function loadURL(string $process = null): void
+    protected function loadURL(?string $process = null): void
     {
         $this->module = "";
         $this->area = "";

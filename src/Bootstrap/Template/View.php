@@ -4,7 +4,7 @@ namespace YAPF\Bootstrap\Template;
 
 class View extends TableView
 {
-    protected function makeDynamicReport(string $target, string $loadingText = null): string
+    protected function makeDynamicReport(string $target, ?string $loadingText = null): string
     {
         $waitingText = '
         <button class="btn btn-primary" type="button" disabled>
