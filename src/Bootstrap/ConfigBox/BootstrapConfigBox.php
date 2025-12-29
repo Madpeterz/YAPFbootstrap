@@ -170,9 +170,5 @@ class BootstrapConfigBox extends SimpleConfig
         $this->area = ucfirst($this->area);
         $this->page = ucfirst($this->page);
         $this->option = ucfirst($this->option);
-
-        if ($this->page == "") {
-            $this->page = "0";
-        }
     }
 }
